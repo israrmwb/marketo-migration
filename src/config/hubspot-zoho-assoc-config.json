@@ -1,0 +1,13 @@
+{
+    "companies": {
+        "to": {
+            "companies": {
+                "getProperty": "parent_account_id",
+                "searchProperty": [
+                    "zoho_account_id",
+                    "zoho_desk_contact_id"
+                ]
+            }
+        }
+    }
+}

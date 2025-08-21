@@ -1,0 +1,17 @@
+{
+  "mapping":{
+      "json_data":{
+        
+      },
+      "mapped_with_default":{ 
+       
+      },
+      "mapped_with_custom":{
+        
+      },
+      "excluded_properties": ""
+
+    },
+  "custom_properties": [
+  ]
+}

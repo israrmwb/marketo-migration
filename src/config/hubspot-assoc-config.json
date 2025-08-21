@@ -1,0 +1,42 @@
+{
+    "tickets":{
+        "TO":{
+            "contacts": "16",
+            "companies": "26",
+            "deals": "28",
+            "calls": "219",
+            "emails": "223",
+            "meetings": "225",
+            "notes": "227",
+            "tasks": "229",
+            "threads": "32",
+            "conversations": "278"
+        }
+    },
+    "contacts":{ 
+        "TO":{
+            "companies": "279",
+            "contacts": "449",
+            "deals": "4"
+        }
+    },
+    "companies":{ 
+        "TO":{
+            "companies": "450",
+            "contacts": "280",
+            "deals": "342"
+        }
+    },
+    "deals":{ 
+        "TO":{
+            "companies": "341",
+            "contacts": "3",
+            "deals": "451"
+        }
+    },
+    "emails":{
+        "TO":{
+            "tickets": "224"
+        }
+    }
+}

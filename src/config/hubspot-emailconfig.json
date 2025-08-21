@@ -1,0 +1,18 @@
+{
+    "hs_email_headers":{
+        "from": {
+          "email": "from@domain.com",
+          "firstName": "FromFirst",
+          "lastName": "FromLast"
+        },
+        "to": [
+          {
+            "email": "ToFirst+ToLast<to@test.com>",
+            "firstName": "ToFirst",
+            "lastName": "ToLast"
+          }
+        ],
+        "cc": [],
+        "bcc": []
+      }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "zoho",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hubspot/api-client": "^13.0.0",
+    "axios": "^1.11.0",
+    "dotenv": "^16.6.1",
+    "form-data": "^4.0.0",
+    "mongodb": "^6.18.0",
+    "p-limit": "^7.1.0"
+  }
+}

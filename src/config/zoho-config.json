@@ -1,0 +1,13 @@
+{
+    "ZOHO_LEGACY_ID_FIELD": {
+        "contacts": "zoho_contact_id",
+        "leads": "zoho_lead_id",
+        "companies": "zoho_account_id",
+        "deals": "zoho_deal_id",
+        "users": "zoho_user_id",
+        "calendlyforzohocrm__Calendly_Events": "zoho_calendly_id",
+        "Companies_and_States": "zoho_companies_and_states_id",
+        "Subscribers": "zoho_subscribers_id",
+        "desk_contacts": "zoho_desk_contact_id"
+    }
+}

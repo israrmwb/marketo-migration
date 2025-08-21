@@ -1,0 +1,47 @@
+{
+    "mapping":{
+        "json_data":{
+        },
+        "mapped_with_default":{ 
+          "name":"name"
+        },
+        "mapped_with_custom":{
+          "programName": "programname",
+          "workspaceId": "workspaceid",
+          "workspaceName": "workspacename",
+          "id": "marketo_list_id"
+        }
+    },
+    "custom_properties": [
+        {
+          "name": "marketo_list_id",
+          "label": "Marketo List ID",
+          "type": "string",
+          "fieldType": "text",
+          "hasUniqueValue": true,
+          "groupName": "marketo_list_information"
+        },
+        {
+          "name": "programname",
+          "label": "Program Name",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_list_information"
+        },
+        {
+          "name": "workspaceid",
+          "label": "workspace ID",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_list_information"
+        },
+        {
+          "name": "workspacename",
+          "label": "Workspace Name",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_list_information"
+        }
+    ]
+}
+  

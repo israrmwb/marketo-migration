@@ -1,0 +1,169 @@
+{
+    "mapping":{
+        "json_data":{
+        },
+        "mapped_with_default":{ 
+          "name":"hs_name",
+          "description": "hs_notes"
+        },
+        "mapped_with_custom":{
+          "id": "marketo_program_id",
+          "url": "url",
+          "type": "type",
+          "channel": "channel",
+          "status": "status",
+          "workspace": "workspace",
+          "headstart": "headstart",
+          "sfdcid": "sfdcid",
+          "sfdcname": "sfdcname"
+        }
+    },
+    "custom_properties": [
+        {
+          "name": "marketo_program_id",
+          "label": "Marketo Program ID",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "url",
+          "label": "URL",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "type",
+          "label": "Type",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "channel",
+          "label": "Channel",
+          "type": "enumeration",
+          "fieldType": "select",
+          "groupName": "marketo_program_information",
+          "options": [
+            {
+              "label": "Online Advertising",
+              "value": "Online Advertising",
+              "displayOrder": 0
+            },
+            {
+              "label": "Webinar",
+              "value": "Webinar",
+              "displayOrder": 1
+            },
+            {
+              "label": "Tradeshow",
+              "value": "Tradeshow",
+              "displayOrder": 2
+            },
+            {
+              "label": "Live Event",
+              "value": "Live Event",
+              "displayOrder": 3
+            },
+            {
+              "label": "List Import",
+              "value": "List Import",
+              "displayOrder": 4
+            },
+            {
+              "label": "Web Content",
+              "value": "Web Content",
+              "displayOrder": 5
+            },
+            {
+              "label": "Nurture",
+              "value": "Nurture",
+              "displayOrder": 6
+            },
+            {
+              "label": "Email Send",
+              "value": "Email Send",
+              "displayOrder": 7
+            },
+            {
+              "label": "Newsletter",
+              "value": "Newsletter",
+              "displayOrder": 8
+            },
+            {
+              "label": "Operational",
+              "value": "Operational",
+              "displayOrder": 9
+            },
+            {
+              "label": "Web Request",
+              "value": "Web Request",
+              "displayOrder": 10
+            },
+            {
+              "label": "Mobile In-App",
+              "value": "Mobile In-App",
+              "displayOrder": 11
+            },
+            {
+              "label": "Web Personalization",
+              "value": "Web Personalization",
+              "displayOrder": 12
+            },
+            {
+              "label": "Emails",
+              "value": "Emails",
+              "displayOrder": 13
+            },
+            {
+              "label": "Webinar (Asynchronous)",
+              "value": "Webinar (Asynchronous)",
+              "displayOrder": 14
+            },
+            {
+              "label": "Chat",
+              "value": "Chat",
+              "displayOrder": 15
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "label": "Status",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "workspace",
+          "label": "Workspace",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "headstart",
+          "label": "Head Start",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "sfdcid",
+          "label": "sfdc Id",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        },
+        {
+          "name": "sfdcname",
+          "label": "sfdc Name",
+          "type": "string",
+          "fieldType": "text",
+          "groupName": "marketo_program_information"
+        }
+    ]
+}
+  
