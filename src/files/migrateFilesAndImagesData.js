@@ -60,6 +60,7 @@ function delay(ms) {
 // --- Process Program as List ---
 async function processFolder(folder) {
     const { name, path, folderId } = folder;
+    logger.info(`processing folder:- ${name}, path:- ${path} and id:- ${JSON.stringify(folderId)}`)
     let notFoundCount = 0;
     let pageCount = 0;
 
@@ -67,7 +68,7 @@ async function processFolder(folder) {
         while (true) {
 
             pageCount++;
-            logger.info(`Processing page ${pageCount} ...`);
+            logger.info(`Processing page ${pageCount} at folder ${name} ...`);
             const marketoFolderId = folderId?.id;
             if (!marketoFolderId) {
                 logger.info(`Skipping folder: ${name} as folder id does not exist`);
@@ -75,6 +76,7 @@ async function processFolder(folder) {
             }
             const { data: files } = await getFolderFiles(marketoFolderId, pageCount);
 
+            logger.info(`get ${files.length} files at page:- ${pageCount}`);
             if (!files.length) {
                 logger.info(`No more Files exist for folder: ${name}`);
                 break;
@@ -85,6 +87,7 @@ async function processFolder(folder) {
                 const newPath = path.replace(/^\/Design Studio\/Default/, "Marketo");
                 const filePath = newPath + `/${file.name}`;
                 try {
+                    logger.info(`Searching file:- ${file.name} at folder:- ${filePath} and folder id:- ${JSON.stringify(folderId)}`);
                     const searchRes = await hubspotService.client.get(`/files/v3/files/stat/${filePath}`);
                     if (searchRes?.data?.file) {
                         logger.info(`   -> Skipping file (already exists in HubSpot): "${file.name}"`);
@@ -95,10 +98,19 @@ async function processFolder(folder) {
                         logger.error(`Error checking file existence for path: ${filePath}`, error.message);
                         continue; // skip this file on unexpected error
                     }
-                    const fileResponse = await axios.get(file.url, { responseType: 'arraybuffer' });
-                    const fileBuffer = Buffer.from(fileResponse.data, 'binary');
-    
-                    await hubspotService.uploadAttachment(fileBuffer, file.name, newPath);
+                    try{
+                         logger.info(`No file:- ${file.name} found at folder:- ${filePath} and folder id:- ${JSON.stringify(folderId)}`);
+                        logger.info(`Downloading path:- ${filePath}, folder:- ${JSON.stringify(folderId)}`);
+                        const fileResponse = await axios.get(file.url, { responseType: 'arraybuffer' });
+                        const fileBuffer = Buffer.from(fileResponse.data, 'binary');
+                        
+                        logger.info(`uploading file at :- ${newPath}, folder:- ${JSON.stringify(folderId)}`);
+                        await hubspotService.uploadAttachment(fileBuffer, file.name, newPath);
+                    }catch(e){
+                         logger.error(`Error downloading and uploading file : ${filePath}`, error.message);
+                         logger.error(`downloading url:- ${file.url} and folder:- ${JSON.stringify(folderId)}`)
+                    }
+                   
                 }
 
                 await delay(PAGE_DELAY);
@@ -130,6 +142,7 @@ async function migrateMarketoFiles() {
 
         for (let i = 0; i < folders.length; i++) {
             const folder = folders[i];
+
             const result = await processFolder(folder);
             if (result.success) {
                 totalMigrated++;
