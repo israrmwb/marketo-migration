@@ -78,7 +78,7 @@ const { marketoApiRequest } = require('../services/marketoApiService');
    let nextPageToken = null;
    let pageCount = 0;
  
-   // try {
+   try {
      const generatedListName = `(Campaign) ${name}`;
      const hubspotListId = await getHubSpotListId(generatedListName);
  
@@ -144,10 +144,10 @@ const { marketoApiRequest } = require('../services/marketoApiService');
        membersProcessed: totalMemberAdded,
        notFound: notFoundCount,
      };
-   // } catch (error) {
-   //   logger.error(`Error processing program: ${name}`, error.message);
-   //   return { success: false, error: error.message };
-   // }
+   } catch (error) {
+     logger.error(`Error processing program: ${name}`, error.message);
+     return { success: false, error: error.message };
+   }
  }
  
  // --- Associate List to Campaign ---
@@ -191,21 +191,23 @@ const { marketoApiRequest } = require('../services/marketoApiService');
  
        logger.info(`Processing ${programs.length} programs on page ${pageCount}`);
  
-       const results = await Promise.all(
-         programs.map(async program => {
-           const result = await processListMembership(program);
-           if (result.success) {
-             totalMigrated++;
-             totalMembersAdded += result.membersProcessed || 0;
-           } else {
-             totalFailed++;
-           }
-           return result;
-         })
-       );
- 
-       logger.info(`Completed page ${pageCount}, total migrated so far: ${totalMigrated}`);
-       break;
+       for(let i=0; i<programs.length; i++){
+          const program = programs[i];
+            const result = await processListMembership(program);
+            
+          if (result.success) {
+            totalMigrated++;
+            totalMembersAdded += result.membersProcessed || 0;
+          } else {
+            totalFailed++;
+          }
+            
+          logger.info(`Completed page ${pageCount}, total migrated so far: ${totalMigrated}`);
+            
+          await delay(PAGE_DELAY);
+        }
+       
+      //  break;
        await delay(PAGE_DELAY);
      }
  

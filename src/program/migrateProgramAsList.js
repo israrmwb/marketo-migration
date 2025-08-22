@@ -9,7 +9,7 @@ const { fetchMarketoPrograms } = require('./migrateObjectProgramData');
 const BATCH_SIZE = parseInt(process.env.BATCH_SIZE) || 100;
 const LIST_TYPE = "0-1";
 const RATE_LIMIT_DELAY = 100; // ms between requests
-const PAGE_DELAY = 1000; // ms between pages
+const PAGE_DELAY = 100; // ms between pages
 
 // Pre-compute field mappings for better performance
 const FIELD_MAPPINGS = {
@@ -133,26 +133,23 @@ async function migrateMarketoLists() {
         }
   
         logger.info(`Processing ${programs.length} programs as list on page ${pageCount}`);
+
+        for(let i=0; i<programs.length; i++){
+          const program = programs[i];
+            const result = await processMarketoListRecord(program, i, programs.length);
+            
+            if (result.success) {
+              totalMigrated++;
+            } else {
+              totalFailed++;
+            }
+            
+            logger.info(`Total migrated so far: ${totalMigrated}`);
+            
+            await delay(RATE_LIMIT_DELAY);
+        }
   
-        const batchPromises = programs.map(async (program, index) => {
-          const result = await processMarketoListRecord(program, index, programs.length);
-          
-          if (result.success) {
-            totalMigrated++;
-          } else {
-            totalFailed++;
-          }
-          
-          logger.info(`Total migrated so far: ${totalMigrated}`);
-          
-          await delay(RATE_LIMIT_DELAY);
-          
-          return result;
-        });
-  
-        await Promise.all(batchPromises);
-  
-        break;
+        // break;
         await delay(PAGE_DELAY);
       }
   
