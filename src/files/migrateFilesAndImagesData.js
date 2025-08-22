@@ -153,6 +153,7 @@ async function migrateMarketoFiles(folderId=34) {
             const nestedFolderId = folder.id;
             if(nestedFolderId && folderId!==nestedFolderId){
                 logger.info(`staring nested folder ${folderId}/${nestedFolderId}`)
+                logger.info(`nested folder path:- ${folder.path}`);
                 await migrateMarketoFiles(nestedFolderId)
             }
 
