@@ -131,14 +131,14 @@ async function processFolder(folder) {
 
 
 // --- Migration Loop ---
-async function migrateMarketoFiles() {
+async function migrateMarketoFiles(folderId=34) {
     let totalMigrated = 0;
     let totalFailed = 0;
 
     logger.info('Starting Files migration...');
 
     try {
-        const { data: folders } = await fetchMarketoFolders();
+        const { data: folders } = await fetchMarketoFolders(folderId);
 
         for (let i = 0; i < folders.length; i++) {
             const folder = folders[i];
@@ -150,6 +150,12 @@ async function migrateMarketoFiles() {
                 totalFailed++;
             }
             logger.info(`Completed Folder total migrated so far: ${totalMigrated}`);
+            const nestedFolderId = folder.id;
+            if(nestedFolderId && folderId!==nestedFolderId){
+                logger.info(`staring nested folder ${folderId}/${nestedFolderId}`)
+                await migrateMarketoFiles(nestedFolderId)
+            }
+
             // break;
         }
 
