@@ -24,10 +24,10 @@ async function fetchMarketoPrograms(page = 1) {
   try {
     const offset = (page - 1) * BATCH_SIZE;
     const params = { maxReturn: BATCH_SIZE, offset };
-    if(filterType&&filterValues){
-      params.filterType = filterType;
-      params.filterValues = filterValues;
-    }
+    // if(filterType&&filterValues){
+    //   params.filterType = filterType;
+    //   params.filterValues = filterValues;
+    // }
     const response = await marketoApiRequest({
       method: 'get',
       url: '/rest/asset/v1/programs.json',
@@ -144,25 +144,27 @@ async function migrateMarketoPrograms() {
 
       logger.info(`Processing ${programs.length} programs on page ${pageCount}`);
 
-      const batchPromises = programs.map(async (program, index) => {
-        const result = await processMarketoProgramRecord(program, index, programs.length);
-        
-        if (result.success) {
-          totalMigrated++;
-        } else {
-          totalFailed++;
-        }
-        
-        logger.info(`Total migrated so far: ${totalMigrated}`);
-        
-        await delay(RATE_LIMIT_DELAY);
-        
-        return result;
-      });
+      for(let i=0; i<programs.length; i++){
+        const program = programs[i];
+          const result = await processMarketoProgramRecord(program, i, programs.length);
+          
+          if (result.success) {
+            totalMigrated++;
+          } else {
+            totalFailed++;
+          }
+          
+          logger.info(`Total migrated so far: ${totalMigrated}`);
+          
+          await delay(RATE_LIMIT_DELAY);
+      }
+      // const batchPromises = programs.map(async (program, index) => {
+      //   return result;
+      // });
 
-      await Promise.all(batchPromises);
+      // await Promise.all(batchPromises);
 
-      break;
+      // break;
       await delay(PAGE_DELAY);
     }
 
